@@ -1,17 +1,19 @@
 <?php
 
 /**
- * git: JonathanMackie
- * Date: 01/10/2019
- * Time: 20:00
- * Example allowing information to be passed into an array, encoded into a JSON format then posted via curl to the retainme order api
+ * gituser: JonathanMackie
+ * Date: 01/11/2019
+ * Time: 11:00 AM
+ * Retain.me Smartslip PHP Example
+ * Example that allows information to be passed into an array, encoded into a JSON format then posted via curl to the retainme order api
+ * For the sake of this example the array is hard coded but the curl will work fine with a dynamic array
  */
 
 //Set the request url
 $url = 'https://orders-beta.smartslip.io/api/v2/orders';
 //This array contains order information, shipping information and two items for the order.
-$field = array (
-        "0" => array (
+$field = array(
+        "0" => array(
         //Order information
         "order_number" => "1012test",
         "order_created_at" => "2018-07-16T11:00:26+00:00",
@@ -23,15 +25,15 @@ $field = array (
         "currency" => "",
         "total_discounts" => 0,
         "total_products_price" => 0,
-        "shipping_methods" => array (
-            "0" => array (
+        "shipping_methods" => array(
+            "0" => array(
                 "shipping_method_id" => 0,
                 "name" => "N/A",
             ),
         ),
         //shipping information
-        "shipments" => array (
-            "0" => array (
+        "shipments" => array(
+            "0" => array(
                 "shipment_id" => 1,
                 "shipping_method_id" => 0,
                 "first_name" => "Jonathan",
@@ -69,14 +71,16 @@ $field = array (
                 "custom_20" => "",
             ),
         ),
-        "customer" => array (
+        //Customer information
+        "customer" => array(
             "customer_id" => 14349023,
             "email" => "jon@retain.me",
         ),
         "billing_address" => "",
-        "products" => array (
+        //Products
+        "products" => array(
             //Item 1
-            "0" => array (
+            "0" => array(
                 "product_id" => 1319714390117,
                 "name" => "Cat in a box",
                 "imageurl" => "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1200px-Cat03.jpg",
@@ -108,7 +112,7 @@ $field = array (
                 "custom_20" => "",
             ),
             //Item 2
-            "1" => array (
+            "1" => array(
                 "product_id" => 1316449026147,
                 "name" => "Tumi - Larkin Erin Brief Bag",
                 "imageurl" => "https://cdn.shopify.com/s/files/1/1602/7127/products/erin-brief-bag-164304.jpg",
@@ -173,19 +177,19 @@ $ch = curl_init();
 //sets headers and auth
 $headers = [
     'Content-Type:application/json',
-    'Authorization: Basic '. base64_encode("user:pass") // <--- Enter the api username & password
+    'Authorization: Basic '. base64_encode("USER:PASS") // <--- Enter the api username & password
 ];
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 
 
 //set the url, POST data and a few more recommended settings
-curl_setopt($ch,CURLOPT_URL, $url);
-curl_setopt($ch,CURLOPT_POSTFIELDS, $fieldjson);
+curl_setopt($ch, CURLOPT_URL, $url);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $fieldjson);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($ch, CURLOPT_ENCODING, "");
-curl_setopt($ch,CURLOPT_MAXREDIRS, 10);
-curl_setopt($ch,CURLOPT_TIMEOUT, 30);
-curl_setopt($ch,CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+curl_setopt($ch, CURLOPT_MAXREDIRS, 10);
+curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
 
 //execute post
 $result = curl_exec($ch);
